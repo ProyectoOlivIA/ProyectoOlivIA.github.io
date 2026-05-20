@@ -1,0 +1,308 @@
+/* =========================================================
+   §EXPLODED · Scroll-driven cinematic video section
+   Comportamiento: full-screen pinned + titular grande por capa
+   ========================================================= */
+
+.exploded{
+  position: relative;
+  /* 500vh = 5 pantallas de scroll → más tiempo para sentir cada capa */
+  height: 500vh;
+  background: #EFEAE0;  /* Crema cálido que conecta con el blanco del vídeo */
+}
+
+/* Pin cinematográfico: ocupa el viewport entero */
+.exploded-pin{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #EFEAE0;
+}
+
+/* ============ Video full-screen ============ */
+.exploded-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* full-bleed cinemático */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.exploded-video.ready{ opacity: 1; }
+
+/* Vignette muy sutil + grano para profundidad cinematográfica */
+.exploded-pin::before{
+  content:'';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    /* Sombra olivo muy suave en los bordes para enmarcar el plano */
+    radial-gradient(ellipse at center, transparent 55%, rgba(46,50,31,0.15) 100%);
+}
+.exploded-pin::after{
+  content:'';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: .08;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+
+/* ============ Overlay UI ============ */
+.exploded-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: var(--pad);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  pointer-events: none;
+}
+
+/* === Header: chapter indicator === */
+.exploded-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  padding-top: 12px;
+}
+.exploded-chapter{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(37,50,31,0.7);  /* Olivo profundo translúcido */
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.exploded-chapter::before{
+  content:'';
+  width: 32px;
+  height: 1px;
+  background: var(--olive-deep);
+}
+.exploded-counter{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(37,50,31,0.6);
+  text-align: right;
+  line-height: 1.6;
+}
+.exploded-counter strong{
+  display: block;
+  font-family: var(--serif);
+  font-size: 56px;
+  color: var(--olive-deep);  /* Verde olivo profundo */
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-weight: 300;
+  font-feature-settings: "tnum" 1;
+}
+.exploded-counter strong em{
+  color: var(--olive);  /* Verde olivo medio */
+  font-style: normal;
+  font-size: 28px;
+  margin-left: 4px;
+  opacity: .65;
+}
+
+/* === CENTER: titular gigante que cambia === */
+.exploded-stage{
+  align-self: center;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exploded-slide{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.98);
+  transition:
+    opacity .9s var(--ease-out),
+    transform .9s var(--ease-out),
+    visibility 0s linear .9s;
+  padding: 0 5vw;
+}
+
+/* Panel cremoso translúcido detrás del texto — garantiza legibilidad */
+.exploded-slide::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(900px, 90vw);
+  height: min(540px, 70vh);
+  background: rgba(239, 234, 224, 0.55);
+  backdrop-filter: blur(24px) saturate(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  border-radius: 32px;
+  border: 1px solid rgba(37, 50, 31, 0.08);
+  box-shadow:
+    0 8px 60px rgba(37, 50, 31, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 0;
+  transition: opacity .9s var(--ease-out);
+}
+
+/* El contenido del slide va por encima del panel */
+.exploded-slide > *{
+  position: relative;
+  z-index: 1;
+}
+
+.exploded-slide.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity .9s var(--ease-out),
+    transform .9s var(--ease-out),
+    visibility 0s linear 0s;
+}
+
+.exploded-tag{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--olive-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+.exploded-tag::before,
+.exploded-tag::after{
+  content:'';
+  width: 24px;
+  height: 1px;
+  background: var(--olive-deep);
+  opacity: .5;
+}
+
+.exploded-title{
+  font-family: var(--serif);
+  font-size: clamp(48px, 9vw, 144px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  color: #1A2414;  /* Verde olivo casi negro para máximo contraste */
+  max-width: 14ch;
+}
+.exploded-title em{
+  font-style: italic;
+  font-weight: 400;
+  color: var(--olive);
+}
+
+.exploded-sub{
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: rgba(26, 36, 20, 0.85);
+  line-height: 1.55;
+  max-width: 52ch;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* === Footer: progress bar + scroll hint === */
+.exploded-footer{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(37,50,31,0.6);
+}
+.exploded-bar{
+  height: 1px;
+  background: rgba(37,50,31,0.18);
+  position: relative;
+  overflow: hidden;
+}
+.exploded-bar-fill{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--olive-deep), var(--olive));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform .15s linear;
+}
+.exploded-scroll-hint{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.exploded-scroll-hint::after{
+  content:'';
+  width: 12px;
+  height: 12px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg) translate(-2px, -2px);
+  animation: arrowDown 1.8s ease-in-out infinite;
+}
+@keyframes arrowDown{
+  0%, 100%{ transform: rotate(45deg) translate(-2px, -2px); opacity: .5; }
+  50%     { transform: rotate(45deg) translate(2px, 2px); opacity: 1; }
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 820px){
+  .exploded{ height: 400vh; }
+  .exploded-counter strong{ font-size: 40px; }
+  .exploded-counter strong em{ font-size: 20px; }
+  .exploded-title{ font-size: clamp(40px, 12vw, 80px); }
+  .exploded-chapter{ font-size: 10px; }
+  .exploded-overlay{ padding: 20px; }
+}
+
+@media (max-width: 540px){
+  .exploded-header{ flex-direction: column; }
+  .exploded-counter{ text-align: left; }
+  .exploded-footer{ grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ============ Reduced motion ============ */
+@media (prefers-reduced-motion: reduce){
+  .exploded{ height: auto; }
+  .exploded-pin{ position: relative; height: auto; padding: 80px 0; }
+  .exploded-video{ position: relative; opacity: 1; height: 70vh; object-fit: contain; }
+  .exploded-slide{
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    margin: 40px 0;
+  }
+  .exploded-pin::before,
+  .exploded-pin::after{ display: none; }
+}

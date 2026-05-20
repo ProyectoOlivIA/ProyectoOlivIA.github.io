@@ -1,0 +1,178 @@
+/* =========================================================
+   §4 CEREBRO AI · EDGE COMPUTING
+   ========================================================= */
+
+.brain{
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.brain-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+@media (max-width:980px){
+  .brain-grid{ grid-template-columns: 1fr; gap: 50px; }
+}
+
+/* Radar visualization */
+.brain-visual{
+  position: relative;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at center, rgba(46,230,214,0.10) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+  display:flex; align-items:center; justify-content: center;
+}
+
+.radar{
+  width: 90%; height: 90%;
+  position: relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.radar-ring{
+  position:absolute;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  width: 100%; height: 100%;
+}
+.radar-ring:nth-child(2){ width: 75%; height: 75%; border-color: rgba(46,230,214,0.15); }
+.radar-ring:nth-child(3){ width: 50%; height: 50%; border-color: rgba(46,230,214,0.25); }
+.radar-ring:nth-child(4){ width: 25%; height: 25%; border-color: rgba(46,230,214,0.4); }
+
+.radar-sweep{
+  position:absolute;
+  width: 50%; height: 50%;
+  top:0; left: 50%;
+  transform-origin: bottom left;
+  background: conic-gradient(from 0deg, transparent 0deg, transparent 320deg, rgba(46,230,214,0.4) 360deg);
+  border-radius: 0 100% 0 0;
+  animation: sweep 4s linear infinite;
+}
+
+.radar-core{
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--olive));
+  box-shadow: 0 0 60px rgba(201,169,97,0.4);
+  z-index: 2;
+  position: relative;
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+  color: var(--bg);
+  font-weight: 500;
+}
+
+.radar-blip{
+  position:absolute;
+  width: 6px; height: 6px;
+  border-radius:50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: blip 3s ease-in-out infinite;
+}
+.blip-1{ top: 18%; left: 30%; animation-delay: 0s; }
+.blip-2{ top: 60%; left: 75%; animation-delay: 1s; }
+.blip-3{ top: 80%; left: 25%; animation-delay: 1.8s; }
+.blip-4{ top: 35%; left: 80%; animation-delay: 2.4s; }
+
+.radar-label{
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.rl-1{ top: 4%; right: 4%; }
+.rl-2{ bottom: 4%; left: 4%; }
+.rl-3{ top: 50%; right: 4%; transform: translateY(-50%); }
+
+/* Brain content side */
+.brain-content{ display:flex; flex-direction:column; gap: 30px; }
+
+.brain-pill{
+  display:inline-flex; align-items:center; gap: 8px;
+  align-self: flex-start;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(46,230,214,0.08);
+  border: 1px solid rgba(46,230,214,0.2);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.brain-pill::before{
+  content:''; width:6px; height:6px; border-radius:50%;
+  background: var(--accent); box-shadow: 0 0 6px var(--accent);
+}
+
+.brain-specs{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+.spec{
+  padding: 20px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: all .4s ease;
+}
+.spec:hover{
+  border-color: var(--line-2);
+  background: rgba(245,241,230,0.05);
+}
+.spec-num{
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.spec-label{
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.hardware-row{
+  margin-top: 16px;
+  padding: 18px 22px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  display:flex; align-items:center; gap: 16px;
+}
+.hw-dot{
+  width:10px; height:10px; border-radius:50%;
+  background: var(--accent); box-shadow: 0 0 10px var(--accent);
+  flex-shrink: 0;
+}
+.hardware-row p{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-2);
+  letter-spacing: .02em;
+}
+.hardware-row strong{ color: var(--ink); font-weight: 500; }
+
+.brain-footnote{
+  font-size: 13px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  letter-spacing: .04em;
+  margin-top: 8px;
+}

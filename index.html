@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0E0F0C" />
+  <title>Axion Systems · OlivIA — Movilidad autónoma nacida en Jaén</title>
+  <meta name="description" content="OlivIA, el buggy autónomo que conduce con IA, respira con energía solar y está hecho del corazón de Jaén. Edge Computing, economía circular e inclusión total." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Axion Systems · OlivIA" />
+  <meta property="og:description" content="Movilidad autónoma nacida en Jaén. Edge AI, economía circular e inclusión total." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets (modular) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/sustainability.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/brain.css">
+  <link rel="stylesheet" href="css/ecosystem.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/exploded.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- =========================================================
+       NAV
+  ========================================================= -->
+  <nav class="nav" id="nav">
+    <a href="#" class="logo" aria-label="Axion Systems">
+      <img src="assets/axion-logo.png" alt="Axion Systems" class="logo-mark" />
+    </a>
+    <div class="nav-links">
+      <a href="#sostenibilidad">Sostenibilidad</a>
+      <a href="#inclusion">Inclusión</a>
+      <a href="#tecnologia">Tecnología</a>
+      <a href="#ecosistema">Ecosistema</a>
+    </div>
+    <a href="#contacto" class="nav-cta">Reservar demo</a>
+  </nav>
+
+  <!-- =========================================================
+       HERO
+  ========================================================= -->
+  <header class="hero">
+    <div class="hero-atmosphere"></div>
+
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="hero-meta">
+          <strong>AXION SYSTEMS</strong>
+          <span>LINARES · JAÉN · ESPAÑA</span>
+          <span>EST. 2024 · CÁMARA DE COMERCIO</span>
+        </div>
+        <div class="hero-meta hero-meta--right">
+          <strong>Vol. 01 — Project OlivIA</strong>
+          <span>Edición Pública · Mayo 2026</span>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <h1 class="display hero-title">
+          <span class="line"><span>La movilidad</span></span>
+          <span class="line"><span>autónoma <em>no nació</em></span></span>
+          <span class="line"><span>en Silicon Valley.</span></span>
+          <span class="line"><span><em>Nació entre olivos.</em></span></span>
+        </h1>
+
+        <div class="hero-right">
+          <p class="hero-lead">
+            Conoce a <strong>OlivIA</strong>: el buggy autónomo que conduce con inteligencia artificial,
+            respira con energía solar y está hecho —literalmente— del corazón de Jaén.
+          </p>
+          <div class="hero-actions">
+            <a href="#sostenibilidad" class="btn btn-primary">
+              Descubre a OlivIA
+              <span class="arr"></span>
+            </a>
+            <a href="#demo" class="btn btn-ghost">
+              Demo 60s
+              <span class="arr"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD glassmorphism -->
+      <aside class="hud" role="status" aria-label="Telemetría en directo">
+        <div class="hud-title">
+          <span>Live Telemetry · OlivIA-01</span>
+          <span class="hud-pulse"></span>
+        </div>
+        <div class="hud-row"><span>LiDAR 360°</span><span>ACTIVE</span></div>
+        <div class="hud-row"><span>Solar Yield</span><span>47 km · day</span></div>
+        <div class="hud-row"><span>AI Latency</span><span>12 ms · local</span></div>
+        <div class="hud-row"><span>GPS RTK</span><span>±1 cm</span></div>
+        <div class="hud-row"><span>Edge Node</span><span>NUC 14 / Jetson</span></div>
+      </aside>
+
+      <!-- Buggy ilustración -->
+      <div class="hero-stage">
+        <div class="buggy-frame" aria-hidden="true">
+          <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#3D5235"/>
+                <stop offset="100%" stop-color="#25321F"/>
+              </linearGradient>
+              <linearGradient id="windowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#2EE6D6" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#1A1D23" stop-opacity="0.8"/>
+              </linearGradient>
+              <radialGradient id="solarGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#2EE6D6" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#2EE6D6" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+                <feOffset dx="0" dy="8"/>
+                <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <ellipse cx="360" cy="120" rx="280" ry="40" fill="url(#solarGlow)"/>
+            <ellipse cx="360" cy="300" rx="240" ry="14" fill="#000" opacity="0.45"/>
+
+            <g filter="url(#shadow)">
+              <path d="M 140 230 Q 140 195, 175 190 L 230 180 Q 250 160, 290 158 L 430 158 Q 470 160, 490 180 L 545 190 Q 580 195, 580 230 L 580 250 L 140 250 Z"
+                    fill="url(#bodyGrad)" stroke="#C9A961" stroke-width="0.8" opacity="0.95"/>
+
+              <rect x="225" y="135" width="270" height="30" rx="6" fill="#0E0F0C" stroke="#C9A961" stroke-width="1"/>
+
+              <g>
+                <rect class="solar-cell" x="232" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="270" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="308" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="346" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="384" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="422" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+                <rect class="solar-cell" x="460" y="140" width="35" height="20" rx="2" fill="#1A4D52" stroke="#2EE6D6" stroke-width="0.4"/>
+              </g>
+
+              <line x1="240" y1="165" x2="245" y2="195" stroke="#C9A961" stroke-width="1.5"/>
+              <line x1="480" y1="165" x2="475" y2="195" stroke="#C9A961" stroke-width="1.5"/>
+
+              <path d="M 250 180 L 300 175 L 420 175 L 470 180 L 460 195 L 260 195 Z"
+                    fill="url(#windowGrad)" stroke="#2EE6D6" stroke-width="0.5" opacity="0.7"/>
+
+              <ellipse cx="158" cy="215" rx="10" ry="6" fill="#F5F1E6" opacity="0.95"/>
+              <ellipse cx="158" cy="215" rx="5" ry="3" fill="#2EE6D6"/>
+              <ellipse cx="562" cy="215" rx="10" ry="6" fill="#F5F1E6" opacity="0.95"/>
+
+              <circle cx="360" cy="130" r="12" fill="#1A1D23" stroke="#2EE6D6" stroke-width="1.2"/>
+              <circle cx="360" cy="130" r="6" fill="#2EE6D6" opacity="0.6"/>
+              <circle cx="360" cy="130" r="3" fill="#2EE6D6"/>
+
+              <path d="M 200 220 Q 280 210, 360 220 T 540 220" stroke="#C9A961" stroke-width="0.4" fill="none" opacity="0.5"/>
+              <rect x="290" y="248" width="80" height="3" fill="#C9A961" opacity="0.7"/>
+
+              <g>
+                <circle cx="220" cy="265" r="32" fill="#0E0F0C" stroke="#C9A961" stroke-width="1.2"/>
+                <circle cx="220" cy="265" r="20" fill="#1A1D23"/>
+                <circle cx="220" cy="265" r="8" fill="#C9A961" opacity="0.8"/>
+                <circle cx="220" cy="265" r="4" fill="#0E0F0C"/>
+              </g>
+              <g>
+                <circle cx="500" cy="265" r="32" fill="#0E0F0C" stroke="#C9A961" stroke-width="1.2"/>
+                <circle cx="500" cy="265" r="20" fill="#1A1D23"/>
+                <circle cx="500" cy="265" r="8" fill="#C9A961" opacity="0.8"/>
+                <circle cx="500" cy="265" r="4" fill="#0E0F0C"/>
+              </g>
+            </g>
+
+            <g opacity="0.3">
+              <line x1="360" y1="130" x2="600" y2="80" stroke="#2EE6D6" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <line x1="360" y1="130" x2="120" y2="80" stroke="#2EE6D6" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <line x1="360" y1="130" x2="600" y2="40" stroke="#2EE6D6" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <line x1="360" y1="130" x2="120" y2="40" stroke="#2EE6D6" stroke-width="0.5" stroke-dasharray="2 4"/>
+            </g>
+
+            <text x="360" y="335" text-anchor="middle" font-family="Geist Mono, monospace" font-size="9" fill="#6E6A5E" letter-spacing="3">OLIVIA · MK I · LINARES</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-ticker">
+        <span><strong>01</strong> — Movilidad inclusiva</span>
+        <span><strong>02</strong> — Cero emisiones</span>
+        <span><strong>03</strong> — Edge AI · sin nube</span>
+        <span><strong>04</strong> — Hecho en Jaén</span>
+        <span class="scroll-cue"><span class="scroll-line"></span>Scroll</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       §EXPLODED · Scroll-driven cinematic video
+       Pantalla completa con titulares grandes que cambian por capa
+  ========================================================= -->
+  <section class="exploded" aria-label="Despiece cinemático de OlivIA">
+    <div class="exploded-pin">
+
+      <!-- Vídeo full-screen (controlado por scroll) -->
+      <video
+        class="exploded-video"
+        src="assets/olivia-exploded.mp4"
+        muted
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+        aria-hidden="true">
+      </video>
+
+      <!-- Overlay UI -->
+      <div class="exploded-overlay">
+
+        <!-- HEADER: capítulo + contador grande -->
+        <div class="exploded-header">
+          <div class="exploded-chapter">
+            Anatomía · OlivIA Mk I
+          </div>
+          <div class="exploded-counter">
+            Capa
+            <strong>
+              <span data-counter-main>01</span><em>/<span data-counter-total>05</span></em>
+            </strong>
+          </div>
+        </div>
+
+        <!-- STAGE: slides con titular gigante que cambia por capa -->
+        <div class="exploded-stage">
+
+          <!-- Slide 01: Chasis -->
+          <div class="exploded-slide">
+            <span class="exploded-tag">01 · Chasis</span>
+            <h2 class="exploded-title">
+              Estructura<br><em>monocasco.</em>
+            </h2>
+            <p class="exploded-sub">
+              Bastidor de aluminio reciclado fabricado en Santana Park.
+              Rigidez torsional optimizada para tracción integral eléctrica.
+            </p>
+          </div>
+
+          <!-- Slide 02: Tren motriz -->
+          <div class="exploded-slide">
+            <span class="exploded-tag">02 · Tren motriz</span>
+            <h2 class="exploded-title">
+              Cuatro motores.<br><em>Un solo sol.</em>
+            </h2>
+            <p class="exploded-sub">
+              Cuatro eAxles independientes con par vectorizado.
+              El techo solar alimenta directamente la sensórica de a bordo.
+            </p>
+          </div>
+
+          <!-- Slide 03: Sensórica AI -->
+          <div class="exploded-slide">
+            <span class="exploded-tag">03 · Sensórica AI</span>
+            <h2 class="exploded-title">
+              LiDAR 360°<br>+ <em>radar 77 GHz.</em>
+            </h2>
+            <p class="exploded-sub">
+              Fusión sensorial procesada localmente por Intel NUC 14 Pro AI
+              y NVIDIA Jetson Orin. Latencia 12 ms. Sin nube.
+            </p>
+          </div>
+
+          <!-- Slide 04: Carenado Smartfil -->
+          <div class="exploded-slide">
+            <span class="exploded-tag">04 · Carenado</span>
+            <h2 class="exploded-title">
+              Hueso de aceituna<br>impreso en <em>3D.</em>
+            </h2>
+            <p class="exploded-sub">
+              Carrocería en Smartfil Olive. Interiores reforzados con
+              carbonato cálcico de conchas recicladas. 87% menos CO₂.
+            </p>
+          </div>
+
+          <!-- Slide 05: Ensamblaje completo -->
+          <div class="exploded-slide">
+            <span class="exploded-tag">05 · OlivIA Mk I</span>
+            <h2 class="exploded-title">
+              Hecho en Linares.<br><em>Pensado para el mundo.</em>
+            </h2>
+            <p class="exploded-sub">
+              Cada pieza, cada decisión, cada línea de código nace del olivar
+              y mira hacia Europa.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- FOOTER: barra de progreso + hint -->
+        <div class="exploded-footer">
+          <span>Scroll para descubrir</span>
+          <div class="exploded-bar" aria-hidden="true">
+            <div class="exploded-bar-fill"></div>
+          </div>
+          <span class="exploded-scroll-hint" data-chapter-total>05</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       §2 SOSTENIBILIDAD
+  ========================================================= -->
+  <section id="sostenibilidad" class="sustain">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="left">
+          <div class="section-num">— 02 / Materia</div>
+          <div class="eyebrow">Economía circular</div>
+        </div>
+        <h2 class="h2 reveal">
+          Lo que antes era residuo,<br>
+          hoy <em>te lleva al futuro</em>.
+        </h2>
+      </div>
+
+      <p class="lead reveal" style="margin-bottom: 60px;">
+        En Jaén producimos más aceite de oliva que ninguna otra región del mundo. Y también, inevitablemente, montañas de hueso de aceituna.
+        En Axion decidimos que esa biomasa no terminaría en una caldera, sino en la carrocería de un vehículo autónomo.
+      </p>
+
+      <div class="materials">
+        <article class="material-card reveal">
+          <div class="material-glyph">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M 16 6 Q 22 10, 22 16 Q 22 24, 16 26 Q 10 24, 10 16 Q 10 10, 16 6 Z"/><circle cx="16" cy="16" r="2"/></svg>
+          </div>
+          <span class="material-tag">Smartfil Olive · Carenado</span>
+          <h3 class="material-title">Hueso de aceituna<br>impreso en 3D</h3>
+          <p class="material-text">
+            El exterior de OlivIA se imprime con un biopolímero desarrollado en Jaén que incorpora micropartículas
+            del hueso de la aceituna. Resistente, ligero, biodegradable y con la huella aromática de la tierra que lo vio nacer.
+          </p>
+          <div class="material-spec">
+            <span>Densidad <strong>1.18 g/cm³</strong></span>
+            <span>Origen <strong>Jaén</strong></span>
+          </div>
+        </article>
+
+        <article class="material-card reveal reveal-d-2">
+          <div class="material-glyph">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M 6 22 Q 16 8, 26 22 Q 22 26, 16 24 Q 10 26, 6 22 Z"/><path d="M 10 21 Q 16 14, 22 21" stroke-dasharray="1 2"/></svg>
+          </div>
+          <span class="material-tag">Smartfil Oyster · Interior</span>
+          <h3 class="material-title">Concha de ostra<br>en cada acabado</h3>
+          <p class="material-text">
+            Los acabados interiores —salpicadero, embellecedores, soportes— utilizan un compuesto reforzado con
+            carbonato cálcico procedente de conchas recicladas del sector ostrícola. Tacto cerámico, peso pluma, residuo cero.
+          </p>
+          <div class="material-spec">
+            <span>Resistencia <strong>+32%</strong></span>
+            <span>Reciclado <strong>100%</strong></span>
+          </div>
+        </article>
+
+        <article class="material-card reveal reveal-d-3">
+          <div class="material-glyph">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="4"/><line x1="16" y1="4" x2="16" y2="8"/><line x1="16" y1="24" x2="16" y2="28"/><line x1="4" y1="16" x2="8" y2="16"/><line x1="24" y1="16" x2="28" y2="16"/><line x1="8" y1="8" x2="11" y2="11"/><line x1="21" y1="21" x2="24" y2="24"/><line x1="24" y1="8" x2="21" y2="11"/><line x1="11" y1="21" x2="8" y2="24"/></svg>
+          </div>
+          <span class="material-tag">Tracción AWD + Techo Solar</span>
+          <h3 class="material-title">Cuatro motores.<br>Un solo sol.</h3>
+          <p class="material-text">
+            Tracción integral eléctrica con cuatro motores independientes para cualquier terreno. El techo solar
+            fotovoltaico extiende la autonomía y alimenta toda la sensórica —LiDAR, radares, cámaras— de forma autónoma.
+          </p>
+          <div class="material-spec">
+            <span>Autonomía solar <strong>+47 km/día</strong></span>
+            <span>Motores <strong>4 × eAxle</strong></span>
+          </div>
+        </article>
+      </div>
+
+      <div class="circular-strip reveal">
+        <p class="lead-text">
+          Cada OlivIA reduce <em>87% de huella CO₂</em> frente al plástico ABS convencional.
+          Trazabilidad total <em>desde la almazara</em>.
+        </p>
+        <div class="big-metric">
+          <span class="num">–87%</span>
+          <span class="label">CO₂ vs. ABS estándar</span>
+        </div>
+        <div class="big-metric">
+          <span class="num">0 km</span>
+          <span class="label">Distancia hasta el origen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       §3 ACCESIBILIDAD
+  ========================================================= -->
+  <section id="inclusion" class="access">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="left">
+          <div class="section-num">— 03 / Humanidad</div>
+          <div class="eyebrow">Inclusión total</div>
+        </div>
+        <div class="access-quote reveal">
+          Si la movilidad no es para todos,<br>
+          <span>no es movilidad. Es privilegio.</span>
+        </div>
+      </div>
+
+      <p class="lead reveal" style="margin-bottom: 60px;">
+        OlivIA no se adapta a las personas. Se diseñó <em>desde</em> las personas.
+        Cada centímetro de su arquitectura responde a una pregunta: ¿puede subir mi abuela? ¿Puede entender mi vecino invidente lo que está pasando?
+        La respuesta tenía que ser sí.
+      </p>
+
+      <div class="access-grid">
+        <article class="access-cell reveal">
+          <div>
+            <div class="access-cell-top">
+              <div class="access-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M 4 24 L 16 12 L 28 24"/><line x1="16" y1="12" x2="16" y2="6"/></svg>
+              </div>
+              <span class="access-num">/ 01</span>
+            </div>
+            <h3 class="access-title">Rampa retráctil<br>proactiva</h3>
+          </div>
+          <p class="access-text">
+            OlivIA detecta a sus pasajeros antes de que lleguen. Si identifica una silla de ruedas, un andador o una persona mayor mediante visión computacional,
+            <strong>despliega su rampa lateral antes de ser solicitada</strong>. La asistencia que se anticipa, no que reacciona.
+          </p>
+        </article>
+
+        <article class="access-cell reveal reveal-d-2">
+          <div>
+            <div class="access-cell-top">
+              <div class="access-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><line x1="4" y1="20" x2="28" y2="20"/><line x1="6" y1="14" x2="26" y2="14"/><circle cx="9" cy="24" r="3"/><circle cx="23" cy="24" r="3"/></svg>
+              </div>
+              <span class="access-num">/ 02</span>
+            </div>
+            <h3 class="access-title">Suspensión<br>que se arrodilla</h3>
+          </div>
+          <p class="access-text">
+            El sistema neumático inclina el chasis hacia el lado del pasajero, reduciendo la altura de acceso <strong>en hasta 11 cm en 3.2 segundos</strong>.
+            Sin esfuerzo. Sin barreras. Sin esperar.
+          </p>
+        </article>
+
+        <article class="access-cell reveal reveal-d-3">
+          <div>
+            <div class="access-cell-top">
+              <div class="access-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M 8 14 Q 8 8, 14 8 L 18 8 Q 24 8, 24 14 L 24 18 Q 24 24, 18 24 L 14 24 Q 8 24, 8 18 Z"/><line x1="14" y1="14" x2="14" y2="18"/><line x1="18" y1="14" x2="18" y2="18"/><line x1="16" y1="20" x2="16" y2="20"/></svg>
+              </div>
+              <span class="access-num">/ 03</span>
+            </div>
+            <h3 class="access-title">Conversación<br>en lenguaje natural</h3>
+          </div>
+          <p class="access-text">
+            Habla con OlivIA como hablarías con un amigo. Sin comandos memorizados, sin frases mágicas.
+            <strong>NLP en castellano</strong>, con soporte en marcha para inglés, andaluz y catalán.
+          </p>
+        </article>
+
+        <article class="access-cell reveal reveal-d-4">
+          <div>
+            <div class="access-cell-top">
+              <div class="access-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="10" cy="10" r="2"/><circle cx="22" cy="10" r="2"/><circle cx="10" cy="22" r="2"/><circle cx="22" cy="22" r="2"/><circle cx="16" cy="16" r="2"/></svg>
+              </div>
+              <span class="access-num">/ 04</span>
+            </div>
+            <h3 class="access-title">Braille en cada<br>elemento táctil</h3>
+          </div>
+          <p class="access-text">
+            Botones, asideros, controles internos: todo identificado en Braille. Desarrollado en colaboración con <strong>ONCE</strong> y <strong>Aprompsi</strong>
+            para validar cada decisión con quien realmente la vive.
+          </p>
+        </article>
+      </div>
+
+      <div class="access-allies reveal">
+        <p>Aliados de inclusión —</p>
+        <div class="ally-logos">
+          <span>ONCE</span>
+          <span>Aprompsi</span>
+          <span class="ally-extra">+ partners abiertos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       §4 CEREBRO AI
+  ========================================================= -->
+  <section id="tecnologia" class="brain">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="left">
+          <div class="section-num">— 04 / Inteligencia</div>
+          <div class="eyebrow">Edge Computing</div>
+        </div>
+        <h2 class="h2 reveal">
+          Una inteligencia<br>
+          que <em>piensa en tierra,</em><br>
+          no en la nube.
+        </h2>
+      </div>
+
+      <div class="brain-grid">
+        <div class="brain-visual reveal">
+          <div class="radar">
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-sweep"></div>
+            <div class="radar-blip blip-1"></div>
+            <div class="radar-blip blip-2"></div>
+            <div class="radar-blip blip-3"></div>
+            <div class="radar-blip blip-4"></div>
+            <div class="radar-core">OlivIA</div>
+            <span class="radar-label rl-1">LiDAR 360°</span>
+            <span class="radar-label rl-2">Radar 77 GHz</span>
+            <span class="radar-label rl-3">GPS RTK</span>
+          </div>
+        </div>
+
+        <div class="brain-content reveal reveal-d-2">
+          <span class="brain-pill">Zero-Cloud · Safety First</span>
+          <p class="lead">
+            Cada decisión crítica de OlivIA se toma a bordo, en milisegundos, sin depender de una conexión remota.
+            Porque cuando un niño cruza la calle, no hay tiempo para preguntarle a un servidor en Frankfurt.
+          </p>
+
+          <div class="hardware-row">
+            <span class="hw-dot"></span>
+            <p><strong>Intel NUC 14 Pro AI</strong> + <strong>NVIDIA Jetson Orin</strong> — cómputo redundante a bordo</p>
+          </div>
+
+          <div class="brain-specs">
+            <div class="spec">
+              <div class="spec-num">±1 cm</div>
+              <div class="spec-label">Precisión GPS RTK</div>
+            </div>
+            <div class="spec">
+              <div class="spec-num">128</div>
+              <div class="spec-label">Canales LiDAR · 20Hz</div>
+            </div>
+            <div class="spec">
+              <div class="spec-num">77 GHz</div>
+              <div class="spec-label">Radar milimétrico</div>
+            </div>
+            <div class="spec">
+              <div class="spec-num">12 ms</div>
+              <div class="spec-label">Latencia decisión IA</div>
+            </div>
+          </div>
+
+          <p class="brain-footnote">
+            Tres fuentes sensoriales. Una sola verdad. Redundancia que salva vidas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       §5 ECOSISTEMA
+  ========================================================= -->
+  <section id="ecosistema" class="ecosys">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="left">
+          <div class="section-num">— 05 / Red</div>
+          <div class="eyebrow">Ecosistema</div>
+        </div>
+        <h2 class="h2 reveal">
+          OlivIA no se hizo sola.<br>
+          La <em>hicimos entre todos</em>.
+        </h2>
+      </div>
+
+      <p class="lead reveal" style="margin-bottom: 50px;">
+        Detrás de cada componente, cada línea de código, cada decisión de diseño hay una red de instituciones,
+        universidades y empresas que han apostado por demostrar que la innovación no necesita un código postal en California.
+        Tiene aroma a olivar, acento jiennense y socios en media Europa.
+      </p>
+
+      <div class="partners reveal">
+        <div class="partner">
+          <div class="partner-name">Universidad de Jaén</div>
+          <div class="partner-role">Investigación & IA</div>
+        </div>
+        <div class="partner">
+          <div class="partner-name">CETEDEX</div>
+          <div class="partner-role">Defensa & Seguridad</div>
+        </div>
+        <div class="partner">
+          <div class="partner-name">Santana Park</div>
+          <div class="partner-role">Manufactura</div>
+        </div>
+        <div class="partner">
+          <div class="partner-name">Innovasur</div>
+          <div class="partner-role">Software & Edge</div>
+        </div>
+        <div class="partner">
+          <div class="partner-name">SICNOVA</div>
+          <div class="partner-role">Impresión 3D · Smartfil</div>
+        </div>
+        <div class="partner">
+          <div class="partner-name">MELTIO</div>
+          <div class="partner-role">Fabricación aditiva metálica</div>
+        </div>
+      </div>
+
+      <div class="intl-strip reveal">
+        <h3>Y una mirada<br><em>hacia Europa.</em></h3>
+        <div class="intl-node">
+          <div class="intl-flag flag-de">
+            <div></div><div></div><div></div>
+          </div>
+          <span>Alemania · Robotics Center</span>
+        </div>
+        <div class="intl-node">
+          <div class="intl-flag flag-it">
+            <div></div><div></div><div></div>
+          </div>
+          <span>Italia · Biomaterials Lab</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer id="contacto">
+    <div class="wrap">
+      <h2 class="footer-mega reveal">
+        Hecho en Linares.<br>
+        <em>Pensado para el mundo.</em>
+      </h2>
+
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Realidad Aumentada</h4>
+          <div class="qr-card">
+            <div class="qr-img">
+              <img src="assets/qr-3d.png" alt="Código QR para visualizar OlivIA en 3D" loading="lazy">
+            </div>
+            <div class="qr-text">
+              <strong>Visualiza nuestro proyecto en 3D.</strong>
+              <p>Escanea el código y descubre cada detalle de OlivIA en tres dimensiones.</p>
+            </div>
+          </div>
+
+          <h4 class="footer-col__second-title">Redes</h4>
+          <div class="social-row">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M22 21V14a4 4 0 0 0-8 0v7M14 9v12"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c0-2.8 0-4.2.5-5.3a4 4 0 0 1 2.2-2.2C5.8 4 7.2 4 10 4h4c2.8 0 4.2 0 5.3.5a4 4 0 0 1 2.2 2.2C22 7.8 22 9.2 22 12s0 4.2-.5 5.3a4 4 0 0 1-2.2 2.2c-1.1.5-2.5.5-5.3.5h-4c-2.8 0-4.2 0-5.3-.5a4 4 0 0 1-2.2-2.2C2 16.2 2 14.8 2 12Z"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 7.7 10.3M20 4l-7.7 10.3M4 20l7.7-5.7M20 20l-7.7-5.7"/></svg>
+            </a>
+            <a href="#" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C7.5 2.8 6.4 3.1 6.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 5 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <ul>
+            <li><a href="#">OlivIA Mk I</a></li>
+            <li><a href="#tecnologia">Tecnología</a></li>
+            <li><a href="#sostenibilidad">Sostenibilidad</a></li>
+            <li><a href="#inclusion">Accesibilidad</a></li>
+            <li><a href="#">Casos de uso</a></li>
+            <li><a href="#">Whitepaper técnico</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre Axion</a></li>
+            <li><a href="#ecosistema">Alianzas</a></li>
+            <li><a href="#">Prensa & media kit</a></li>
+            <li><a href="#">Carreras</a></li>
+            <li><a href="#">Blog técnico</a></li>
+            <li><a href="#">Inversores</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="#">Incubadora Cámara de Comercio</a></li>
+            <li><a href="#">Linares · Jaén · 23700</a></li>
+            <li><a href="mailto:hola@axionsystems.es">hola@axionsystems.es</a></li>
+            <li><a href="mailto:partners@axionsystems.es">partners@axionsystems.es</a></li>
+            <li><a href="#">+34 953 ·· ·· ··</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-base">
+        <span>© 2026 Axion Systems S.L. — Todos los derechos reservados</span>
+        <div class="badges">
+          <span class="badge">ISO 26262 · en proceso</span>
+          <span class="badge">CE Mark</span>
+          <span class="badge">WCAG 2.1 AA</span>
+          <span class="badge">GDPR</span>
+        </div>
+        <span>ES · EN · IT · DE</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts (modular, defer para no bloquear render) -->
+  <script src="js/nav.js" defer></script>
+  <script src="js/reveal.js" defer></script>
+  <script src="js/parallax.js" defer></script>
+  <script src="js/exploded.js" defer></script>
+
+</body>
+</html>

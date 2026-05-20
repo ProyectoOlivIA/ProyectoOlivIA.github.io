@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AXION SYSTEMS — Exploded Vehicle Viewer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* ============================================
+   VARIABLES & RESET
+   ============================================ */
+
+:root {
+  --acid:     #00ffa3;
+  --acid-dim: rgba(0,255,163,.12);
+  --acid-glow:rgba(0,255,163,.35);
+  --blue:     #00c8ff;
+  --blue-dim: rgba(0,200,255,.10);
+  --amber:    #ffb800;
+  --panel-bg: rgba(4,6,10,.75);
+  --border:   rgba(0,255,163,.14);
+  --border-hi:rgba(0,255,163,.45);
+  --text:     #e8efe8;
+  --muted:    #5a6860;
+  --scan:     rgba(0,255,163,.03);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  overflow:hidden;
+  background:#020405;
+  font-family:'Rajdhani', sans-serif;
+  color:var(--text);
+  cursor:crosshair;
+}
+
+/* ============================================
+   AMBIENT BACKGROUND
+   ============================================ */
+
+.bg-layer {
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+}
+
+/* Scanlines */
+.bg-layer::before {
+  content:"";
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--scan) 2px,
+    var(--scan) 4px
+  );
+  animation:scanMove 8s linear infinite;
+}
+
+/* Grid */
+.bg-layer::after {
+  content:"";
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,163,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,163,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+@keyframes scanMove {
+  from { background-position:0 0; }
+  to   { background-position:0 400px; }
+}
+
+/* Radial glows */
+.bg-glow {
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,255,163,.04), transparent),
+    radial-gradient(circle at 10% 15%, rgba(0,255,163,.07), transparent 30%),
+    radial-gradient(circle at 90% 85%, rgba(0,200,255,.06), transparent 28%);
+}
+
+/* ============================================
+   CANVAS
+   ============================================ */
+
+#canvas-container {
+  width:100vw;height:100vh;position:relative;z-index:1;
+}
+
+/* ============================================
+   SHARED PANEL MIXIN
+   ============================================ */
+
+.panel {
+  position:absolute;
+  background:var(--panel-bg);
+  backdrop-filter:blur(24px) saturate(1.4);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border:1px solid var(--border);
+  z-index:100;
+  overflow:hidden;
+}
+
+/* Animated corner accent */
+.panel::before {
+  content:"";
+  position:absolute;
+  top:0;left:0;
+  width:60px;height:60px;
+  border-top:1.5px solid var(--acid);
+  border-left:1.5px solid var(--acid);
+  border-radius:0 0 8px 0;
+  opacity:.7;
+}
+
+.panel::after {
+  content:"";
+  position:absolute;
+  bottom:0;right:0;
+  width:30px;height:30px;
+  border-bottom:1px solid rgba(0,255,163,.3);
+  border-right:1px solid rgba(0,255,163,.3);
+}
+
+/* ============================================
+   TOP-LEFT: INFO PANEL
+   ============================================ */
+
+.ui {
+  top:28px;left:28px;
+  width:340px;
+  border-radius:4px 24px 24px 4px;
+  padding:0;
+}
+
+/* Header accent bar */
+.panel-header-bar {
+  height:3px;
+  background:linear-gradient(90deg, var(--acid), var(--blue), transparent);
+  width:100%;
+}
+
+.ui-inner {
+  padding:24px 24px 22px;
+}
+
+/* Brand */
+.brand {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:22px;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(0,255,163,.08);
+  position:relative;
+}
+
+.logo-wrap {
+  width:58px;height:58px;
+  border-radius:12px;
+  border:1px solid var(--border-hi);
+  overflow:hidden;
+  background:#000;
+  flex-shrink:0;
+  box-shadow:0 0 20px var(--acid-glow), inset 0 0 12px rgba(0,255,163,.05);
+  position:relative;
+}
+
+.logo-wrap::after {
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(0,255,163,.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.logo-wrap img {
+  width:130%;height:130%;
+  object-fit:cover;
+  position: relative;
+  left: -8px;
+  transform:translateY10px;
+  filter:contrast(1.1) brightness(1.05);
+}
+
+.brand-text h1 {
+  font-family:'Orbitron',sans-serif;
+  font-size:1.05rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  color:#fff;
+  line-height:1;
+  margin-bottom:5px;
+}
+
+.brand-text .sub {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;
+  color:var(--acid);
+  letter-spacing:.28em;
+  opacity:.75;
+}
+
+.brand-text .tagline {
+  margin-top:3px;
+  font-size:.72rem;
+  color:var(--muted);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+/* Status rows */
+.status-rows {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.status-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 14px;
+  border-radius:6px;
+  background:rgba(0,255,163,.04);
+  border:1px solid rgba(0,255,163,.07);
+  position:relative;
+  overflow:hidden;
+}
+
+.status-row::before {
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(180deg, var(--acid), transparent);
+}
+
+.row-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;
+  color:var(--muted);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.row-value {
+  font-family:'Orbitron',sans-serif;
+  font-size:.8rem;
+  font-weight:600;
+  color:var(--acid);
+  letter-spacing:.06em;
+}
+
+.row-value.neutral { color:#fff; }
+
+/* Live badge */
+.live-badge {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:18px;
+  padding:9px 12px;
+  border-radius:4px;
+  background:rgba(0,255,163,.06);
+  border:1px solid rgba(0,255,163,.2);
+}
+
+.pulse-dot {
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--acid);
+  box-shadow:0 0 8px var(--acid);
+  animation:pulse 1.6s ease-in-out infinite;
+  flex-shrink:0;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); box-shadow:0 0 6px var(--acid); }
+  50%      { opacity:.5; transform:scale(.7); box-shadow:0 0 2px var(--acid); }
+}
+
+.live-text {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.68rem;
+  color:var(--acid);
+  letter-spacing:.2em;
+}
+
+/* ============================================
+   BOTTOM-LEFT: CONTROLS PANEL
+   ============================================ */
+
+.controls-panel {
+  bottom:28px;left:28px;
+  width:340px;
+  border-radius:4px 4px 24px 4px;
+  padding:0;
+}
+
+.ctrl-inner {
+  padding:20px 22px 22px;
+}
+
+.ctrl-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.22em;
+  color:var(--acid);
+  margin-bottom:16px;
+  opacity:.85;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.ctrl-title::after {
+  content:"";
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, rgba(0,255,163,.3), transparent);
+}
+
+.ctrl-list {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.ctrl-item {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px 14px;
+  border-radius:6px;
+  background:rgba(0,255,163,.03);
+  border:1px solid rgba(0,255,163,.06);
+  transition:border-color .3s, background .3s;
+}
+
+.ctrl-item:hover {
+  background:rgba(0,255,163,.07);
+  border-color:rgba(0,255,163,.18);
+}
+
+.ctrl-icon {
+  width:38px;height:38px;
+  border-radius:8px;
+  background:linear-gradient(145deg, rgba(0,255,163,.12), rgba(0,200,255,.05));
+  border:1px solid rgba(0,255,163,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  flex-shrink:0;
+  box-shadow:0 0 12px rgba(0,255,163,.1);
+}
+
+.ctrl-text h3 {
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:.92rem;
+  letter-spacing:.06em;
+  margin-bottom:2px;
+  color:#fff;
+}
+
+.ctrl-text p {
+  font-size:.75rem;
+  color:var(--muted);
+  letter-spacing:.02em;
+}
+
+/* Shortcut key chips */
+.key-chip {
+  margin-left:auto;
+  padding:3px 8px;
+  border-radius:4px;
+  background:rgba(0,255,163,.07);
+  border:1px solid rgba(0,255,163,.18);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  color:var(--acid);
+  letter-spacing:.1em;
+  white-space:nowrap;
+}
+
+/* ============================================
+   VIDEO FEED — BOTTOM RIGHT
+   ============================================ */
+
+.video-wrap {
+  position:absolute;
+  bottom:28px;right:28px;
+  z-index:100;
+  width:240px;
+}
+
+/* Glowing frame */
+.video-frame {
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,255,163,.2),
+    0 0 25px rgba(0,255,163,.18),
+    0 0 60px rgba(0,255,163,.07),
+    inset 0 0 30px rgba(0,0,0,.6);
+}
+
+/* Animated border */
+.video-frame::before {
+  content:"";
+  position:absolute;inset:-1px;
+  border-radius:17px;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--acid) 15%,
+    transparent 30%,
+    transparent 70%,
+    var(--blue) 85%,
+    transparent 100%
+  );
+  z-index:1;
+  animation:rotateBorder 3s linear infinite;
+}
+
+.video-frame::after {
+  content:"";
+  position:absolute;inset:1px;
+  border-radius:15px;
+  background:#000;
+  z-index:2;
+}
+
+@keyframes rotateBorder {
+  from { transform:rotate(0deg); }
+  to   { transform:rotate(360deg); }
+}
+
+.input_video {
+  position:relative;
+  width:100%;
+  display:block;
+  transform:scaleX(-1);
+  border-radius:14px;
+  z-index:3;
+}
+
+/* Video overlay corners */
+.corner { position:absolute; width:16px; height:16px; z-index:4; }
+.corner.tl { top:8px;  left:8px;  border-top:2px solid var(--acid); border-left:2px solid var(--acid); border-radius:2px 0 0 0; }
+.corner.tr { top:8px;  right:8px; border-top:2px solid var(--acid); border-right:2px solid var(--acid); border-radius:0 2px 0 0; }
+.corner.bl { bottom:8px; left:8px; border-bottom:2px solid var(--acid); border-left:2px solid var(--acid); border-radius:0 0 0 2px; }
+.corner.br { bottom:8px; right:8px; border-bottom:2px solid var(--acid); border-right:2px solid var(--acid); border-radius:0 0 2px 0; }
+
+/* Video label */
+.video-label {
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.video-label span {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  color:var(--acid);
+  letter-spacing:.22em;
+  opacity:.7;
+}
+
+/* ============================================
+   HUD CORNERS (decorative)
+   ============================================ */
+
+.hud-tl {
+  position:fixed;top:0;left:0;width:220px;height:220px;
+  border-top:1px solid rgba(0,255,163,.15);
+  border-left:1px solid rgba(0,255,163,.15);
+  border-radius:0 0 80px 0;
+  pointer-events:none;z-index:50;
+}
+
+.hud-tr {
+  position:fixed;top:0;right:0;width:160px;height:120px;
+  border-top:1px solid rgba(0,200,255,.12);
+  border-right:1px solid rgba(0,200,255,.12);
+  border-radius:0 0 0 40px;
+  pointer-events:none;z-index:50;
+}
+
+.hud-br {
+  position:fixed;bottom:0;right:0;width:100px;height:80px;
+  border-bottom:1px solid rgba(0,255,163,.1);
+  border-right:1px solid rgba(0,255,163,.1);
+  pointer-events:none;z-index:50;
+}
+
+/* Crosshair center */
+.crosshair {
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:40px;height:40px;
+  pointer-events:none;z-index:50;
+  opacity:.2;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content:"";
+  position:absolute;
+  background:var(--acid);
+}
+
+.crosshair::before {
+  width:1px;height:100%;
+  top:0;left:50%;transform:translateX(-50%);
+}
+
+.crosshair::after {
+  width:100%;height:1px;
+  left:0;top:50%;transform:translateY(-50%);
+}
+
+/* ============================================
+   TOP CENTER: TITLE STRIP
+   ============================================ */
+
+.title-strip {
+  position:fixed;
+  top:0;
+  left:50%;transform:translateX(-50%);
+  z-index:100;
+  padding:8px 32px 10px;
+  background:linear-gradient(180deg, rgba(0,0,0,.85), transparent);
+  display:flex;align-items:center;gap:16px;
+  pointer-events:none;
+}
+
+.title-strip .sys-id {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;
+  color:rgba(0,255,163,.45);
+  letter-spacing:.28em;
+}
+
+.title-strip .divider {
+  width:1px;height:12px;background:rgba(0,255,163,.2);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media(max-width:900px){
+  .ui,.controls-panel { width:calc(100vw - 32px); left:16px; }
+  .controls-panel { bottom:16px; }
+  .ui { top:16px; }
+  .video-wrap { width:150px; right:16px; bottom:16px; }
+  .hud-tr,.hud-tl,.hud-br { display:none; }
+  .title-strip { display:none; }
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+</head>
+
+<body>
+
+<!-- Layers -->
+<div class="bg-layer"></div>
+<div class="bg-glow"></div>
+
+<!-- HUD decoration -->
+<div class="hud-tl"></div>
+<div class="hud-tr"></div>
+<div class="hud-br"></div>
+<div class="crosshair"></div>
+
+<!-- Top center strip -->
+<div class="title-strip">
+  <span class="sys-id">AXION-3D-VIEWER</span>
+  <div class="divider"></div>
+  <span class="sys-id">EXPLODED VIEW MODULE</span>
+  <div class="divider"></div>
+  <span class="sys-id">v2.1.0</span>
+</div>
+
+<!-- ── TOP LEFT: INFO ── -->
+<div class="panel ui">
+  <div class="panel-header-bar"></div>
+  <div class="ui-inner">
+
+    <div class="brand">
+      <div class="logo-wrap">
+        <img src="logo.jpg" alt="AXION">
+      </div>
+      <div class="brand-text">
+        <h1>AXION</h1>
+        <div class="sub">SYSTEMS</div>
+        <div class="tagline">Vehicle Intelligence Platform</div>
+      </div>
+    </div>
+
+    <div class="status-rows">
+
+      <div class="status-row">
+        <div>
+          <div class="row-label">Estado del modelo</div>
+          <div id="status" class="row-value">Iniciando...</div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <div>
+          <div class="row-label">Gesto detectado</div>
+          <div id="gesture" class="row-value neutral">Esperando mano...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="live-badge">
+      <div class="pulse-dot"></div>
+      <span class="live-text">GESTURE TRACKING — ACTIVO</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── BOTTOM LEFT: CONTROLS ── -->
+<div class="panel controls-panel">
+  <div class="panel-header-bar"></div>
+  <div class="ctrl-inner">
+
+    <div class="ctrl-title">Controles gestuales</div>
+
+    <div class="ctrl-list">
+
+      <div class="ctrl-item">
+        <div class="ctrl-icon">✌️</div>
+        <div class="ctrl-text">
+          <h3>Modo Despiece</h3>
+          <p>Activa el exploded view del vehículo</p>
+        </div>
+        <div class="key-chip">2 DEDOS</div>
+      </div>
+
+      <div class="ctrl-item">
+        <div class="ctrl-icon">☝️</div>
+        <div class="ctrl-text">
+          <h3>Zoom out</h3>
+          <p>Aleja el vehículo</p>
+        </div>
+        <div class="key-chip">1 DEDO</div>
+      </div>
+
+      <div class="ctrl-item">
+        <div class="ctrl-icon">🤏</div>
+        <div class="ctrl-text">
+          <h3>Zoom in</h3>
+          <p>Pinch para acercar</p>
+        </div>
+        <div class="key-chip">PINCH</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ── BOTTOM RIGHT: VIDEO ── -->
+<div class="video-wrap">
+  <div class="video-frame">
+    <video class="input_video" autoplay playsinline></video>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+  </div>
+  <div class="video-label">
+    <span>CÁMARA // HAND TRACKING</span>
+  </div>
+</div>
+
+<!-- ── CANVAS ── -->
+<div id="canvas-container"></div>
+
+<script type="module" src="main.js"></script>
+
+</body>
+</html>
